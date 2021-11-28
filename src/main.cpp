@@ -2,13 +2,11 @@
 #include <string>
 #include <vector>
 
-   // bool bedroom;        // Спальня
+  // bool bedroom;        // Спальня
   // bool kitchen;        // Кухня
   // bool bathroom;       // Ванная
   // bool children_room;  // Детская
   // bool living_room;    // Гостиная
-struct Room {
-};
 
 struct Home {
   double ceiling_height;          // Высота потолков
@@ -18,7 +16,7 @@ struct Home {
 };
 
 struct Region {
-  struct Room room;
+  struct Home home;
   bool house = true;    // Дом
   bool garage = false;  // Гараж
   bool shed = false;    // Сарай
@@ -38,49 +36,74 @@ int main() {
   Home home;
   std::string setRoom;
   std::string setBake;
+  std::string setGarage;
+  std::string setShed;
+  std::string setBath;
   int countRegion;
   int countRoom;
   int countFloor;
   double setSquare;
 
-
-  std::cout << "Enter count floor" << std::endl;
-  std::cin >> countFloor;
-  if(countFloor > 0 && countFloor < 4){
-    for(int i = 1; i <= countFloor; i++){
-      std::cout << "Enter ceiling height [" << i << "] floor" << std::endl;
-      std::cin >> home.ceiling_height;
-      std::cout << "Count room" << std::endl;
-      std::cin >> countRoom;
-      if(countRoom > 1 && countRoom < 5){
-        for(int j = 1; j <= countRoom; j++){
-          std::cout << "Enter room" << std::endl;
-          std::cin >> setRoom;
-          home.rooms.push_back(setRoom);
-          std::cout << "Enter square room" << std::endl;
-          std::cin >> setSquare;
-          home.square.push_back(setSquare);
-        }
-        std::cout << "There is a stove in the house? y/n" << std::endl;
-        std::cin >> setBake;
-        if(setBake == "y"){
-          home.bake = true;
+  std::cout << "How many plots are there in the village?" << std::endl;
+  std::cin >> countRegion;
+  for(int i = 0; i < countRegion; i++){ 
+    std::cout << "Enter count floor in house" << std::endl;
+    std::cin >> countFloor;
+    if(countFloor > 0 && countFloor < 4){
+      for(int j = 1; j <= countFloor; j++){
+        std::cout << "Enter ceiling height [" << j << "] floor" << std::endl;
+        std::cin >> region.home.ceiling_height;
+        std::cout << "Count room" << std::endl;
+        std::cin >> countRoom;
+        if(countRoom > 1 && countRoom < 5){
+          for(int k = 1; k <= countRoom; k++){
+            std::cout << "Enter room" << std::endl;
+            std::cin >> setRoom;
+            region.home.rooms.push_back(setRoom);
+            std::cout << "Enter square room" << std::endl;
+            std::cin >> setSquare;
+            region.home.square.push_back(setSquare);
+          }
+          std::cout << "There is a stove in the house? y/n" << std::endl;
+          std::cin >> setBake;
+          if(setBake == "y"){
+            region.home.bake = true;
+          } else {
+            region.home.bake = false;
+          }
         } else {
-          home.bake = false;
+          std::cout << "Invalid value rooms" << std::endl;
         }
-      } else {
-        std::cout << "Invalid value rooms" << std::endl;
       }
+    } else {
+      std::cout << "Invalid value floors" << std::endl;
     }
-  } else {
-    std::cout << "Invalid value floors" << std::endl;
+    
+    std::cout << "Is there a garage on the plot? y/n" << std::endl;
+    std::cin >> setGarage;
+    if(setGarage == "y"){
+      region.garage = true;
+    } else {
+      region.garage = false;
+    }
+    std::cout << "Is there a shed on the plot? y/n" << std::endl;
+    std::cin >> setShed;
+    if(setShed == "y"){
+      region.shed = true;
+    } else {
+      region.shed = false;
+    }
+    std::cout << "Is there a sauna on the site? y/n" << std::endl;
+    std::cin >> setBath;
+    if(setBath == "y"){
+      region.bath = true;
+    } else {
+      region.bath = false;
+    }
   }
 
-
-
-
-  for(int i = 0; i < home.rooms.size(); i++){
-    std::cout << i << " " << home.rooms[i] << " - " << home.square[i] << std::endl;
+  for(int i = 0; i < region.home.rooms.size(); i++){
+    std::cout << i << " " << region.home.rooms[i] << " - " << region.home.square[i] << std::endl;
   }
 
   return 0;
