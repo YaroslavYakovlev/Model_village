@@ -8,51 +8,95 @@
 // bool children_room;  // Детская
 // bool living_room;    // Гостиная
 
-enum type_room {
-  bedroom,        // Спальня
-  kitchen,        // Кухня
-  bathroom,       // Ванная
-  children_room,  // Детская
-  living_room     // Гостиная
+// enum type_room {
+//   bedroom,        // Спальня
+//   kitchen,        // Кухня
+//   bathroom,       // Ванная
+//   children_room,  // Детская
+//   living_room     // Гостиная
+// };
+
+// enum type_building {
+//   home,    // Дом
+//   garage,  // Гараж
+//   shed,    // Сарай
+//   bath     // Баня
+// };
+
+// struct Room {
+//   type_room type_room;  // Тип комнат
+//   double square;        // Площадь комнаты
+// };
+
+// struct Floor {
+//   std::vector<Room> rooms;  // Вектор комнат
+//   double ceiling_height;    // Высота потолков
+// };
+
+// struct Home {
+//   std::vector<Floor> floor;
+// };
+
+// struct Region {
+//   type_building type_building;
+
+//   // bool house = true;    // Дом
+//   // bool garage = false;  // Гараж
+//   // bool shed = false;    // Сарай
+//   // bool bath = false;    // Баня
+//   bool bath_bake = false;
+//   bool home_bake = false;
+// };
+///////////////////////////////////////////////////////////////////////////////
+enum room_type {
+  living,    // Гостиная
+  children,  // Детская
+  bedroom,   // Спальня
+  kitchen,   // Кухня
+  toilet,    // Туалет
+  bathroom   // Ванная
 };
 
-enum type_building {
-  home,    // Дом
-  garage,  // Гараж
-  shed,    // Сарай
-  bath     // Баня
+struct room {
+  double area;  // Площадь
+  room_type type;
 };
 
-struct Room {
-  type_room type_room;  // Тип комнат
-  double square;        // Площадь комнаты
+struct store {
+  double height;  // Высота потолков
+  std::vector<room> rooms;
 };
 
-struct Floor {
-  std::vector<Room> rooms;  // Вектор комнат
-  double ceiling_height;    // Высота потолков
+enum building_type {
+  house,      // Дом
+  garage,     // Гараж
+  bathhouse,  // Баня
+  barn,       // Сарай
 };
 
-struct Home {
-  std::vector<Floor> floor;
+struct building {
+  bool has_chimney;  // Дымоход
+  double area;
+  building_type type;
+  std::vector<store> stores;
 };
 
-struct Region {
-  type_building type_building;
-
-  // bool house = true;    // Дом
-  // bool garage = false;  // Гараж
-  // bool shed = false;    // Сарай
-  // bool bath = false;    // Баня
-  bool bath_bake = false;
-  bool home_bake = false;
+struct plot {
+  int number;
+  std::vector<building> buildings;
+  double area;
 };
 
+struct village {
+  std::vector<plot> plots;
+};
+///////////////////////////////////////////////////////////////////////////////
 int main() {
   int countRegion;
   int countFloor;
-  std::vector<Region> region;
-  Region composition_region;
+  village village;
+  // std::vector<Region> region;
+  // Region composition_region;
   std::cout << "Model village" << std::endl;
   std::cout << "Enter the number of areas" << std::endl;
   std::cin >> countRegion;
@@ -65,21 +109,17 @@ int main() {
     std::cout << "There is garage (y/n)?" << std::endl;
     std::cin >> setGarage;
     if (setGarage == "y") {
-      composition_region.garage = true;
     }
     std::cout << "There is shed (y/n)?" << std::endl;
     std::cin >> setShed;
     if (setShed == "y") {
-      composition_region.shed = true;
     }
     std::cout << "There is bath (y/n)?" << std::endl;
     std::cin >> setBath;
     if (setBath == "y") {
-      composition_region.bath = true;
       std::cout << "There is bake in bath (y/n)?" << std::endl;
       std::cin >> setBake;
       if (setBake == "y") {
-        composition_region.bath_bake = true;
       }
     }
     /**
@@ -89,7 +129,7 @@ int main() {
     std::cin >> countFloor;
     for (int i = 0; i < countFloor; i++) {
     }
-    region[i] = composition_region;
+    // region[i] = composition_region;
   }
 
   return 0;
